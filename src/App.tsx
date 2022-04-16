@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { ThemeProvider } from 'styled-components';
 
 import { myTheme } from './shared/styles/my-theme';
@@ -9,7 +15,14 @@ function App() {
   return (
     <ThemeProvider theme={myTheme}>
       <GlobalStyle />
-      <Cards />
+      <Router>
+        <Switch>
+          <Redirect exact from="/" to="/cards" />
+          <Route path="/cards">
+            <Cards />
+          </Route>
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }
