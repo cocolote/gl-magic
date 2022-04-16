@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FunctionComponent } from 'react';
+import { Title } from './cards.styles';
 import { cardsSrvc } from './cards.service';
 
-function Cards() {
+function Cards(): FunctionComponent {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -13,9 +14,9 @@ function Cards() {
     setCards(auxCards.cards);
   };
 
-  return cards.map((card: { name: string }, i: number) => (
-    <div key={i}>{card.name}</div>
-  ));
+  return (
+    <Title>Gathering</Title>
+  );
 };
 
 export default Cards;
