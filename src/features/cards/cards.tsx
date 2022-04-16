@@ -1,5 +1,6 @@
 import { useEffect, useState, ReactElement } from 'react';
-import { Title } from './cards.styles';
+import Title from '@shared/components/title/title';
+
 import { cardsSrvc } from './cards.service';
 
 function Cards(): ReactElement {
@@ -17,7 +18,7 @@ function Cards(): ReactElement {
   };
 
   return (
-    <Title>Gatherer</Title>
+    <Title size="lg">Gatherer</Title>
   );
 }
 
