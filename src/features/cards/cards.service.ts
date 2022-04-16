@@ -1,4 +1,5 @@
-import { http } from '../../shared/utils/http-client';
+//import { http } from '../../shared/utils/http-client';
+import { http } from '@shared/utils/http-client';
 
 const getAll = async (options: any = {}) => {
   const url = `https://api.magicthegathering.io/v1/cards`;

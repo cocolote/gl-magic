@@ -1,17 +1,10 @@
-const path = require('path');
-const npm_package = require('./package.json');
-const { CracoAliasPlugin } = require('react-app-alias');
+const { CracoAliasPlugin, configPaths } = require('react-app-alias');
 
 module.exports = {
-  webpack: {
-    plugins: {
+  plugins: [
+    {
       plugin: CracoAliasPlugin,
-      options: {},
-    },
-  },
-  babel: {
-    presets: [
-      '@emotion/babel-preset-css-prop',
-    ],
-  },
-};
+      options: { alias: configPaths('./tsconfig.paths.json') }
+    }
+  ]
+}

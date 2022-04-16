@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-component';
+import { DefaultTheme } from 'styled-components';
 
 const myTheme: DefaultTheme = {
   palette: {
@@ -10,12 +10,12 @@ const myTheme: DefaultTheme = {
       primary: '#FFF',
       secondary: '#BBB',
     },
-    textField: {
-      border: '1px solid #777',
-      background: '#222',
-      borderRadius: '5px',
-    }
   },
+  textField: {
+    border: '1px solid #777',
+    background: '#222',
+    borderRadius: '5px',
+  }
 };
 
 export { myTheme };

@@ -1,6 +1,6 @@
-import 'styled-component';
+import 'styled-components';
 
-declare module 'styled-component' {
+declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
       highlight: string,

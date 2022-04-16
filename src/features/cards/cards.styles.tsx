@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const TitleText = styled.h3`
@@ -18,7 +18,7 @@ interface TitleProps {
   children: any;
 }
 
-export function Title({ children }): FunctionComponent<TitleProps> {
+export function Title({ children }: TitleProps): ReactElement {
   return (
     <div>
       <TitleText>{children}</TitleText>
