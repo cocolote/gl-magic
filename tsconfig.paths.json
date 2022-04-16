@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseURL": "src",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@features/*": ["features/*"]
+    }
+  }
+}
