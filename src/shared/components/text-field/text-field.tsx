@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
-import Title from '@shared/components/title/title';
-import { StyledInput } from './styled.components';
+import { StyledInput, StyledLabel } from './styled.components';
 
 type propsType = {
   type: string,
@@ -22,7 +21,7 @@ function TextField({
 
   return (
     <div>
-      {label && <Title size="sm">{label}</Title>}
+      {label && <StyledLabel>{label}</StyledLabel>}
       <StyledInput
         type={type}
         name={name}

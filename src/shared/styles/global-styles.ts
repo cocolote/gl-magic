@@ -5,6 +5,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.palette.text.primary};
     background-color: ${props => props.theme.palette.mainBg};
     font-family: 'OutFit', 'Roboto', 'Arial', sans-serif;
+
+    & * {
+      box-sizing: border-box;
+    }
   }
 `;
 

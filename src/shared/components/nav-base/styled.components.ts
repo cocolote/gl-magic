@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 const Logo = styled.img`
   position: relative;
-  box-sizing: border-box;
   display: block;
   width: 100%;
 `;
@@ -36,7 +35,13 @@ const MyNavLink = styled(NavLink)`
 `;
 
 const AppBody = styled.div`
-  margin-left: ${props => props.theme.navDrawer.width};
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: ${props => props.theme.navDrawer.width};
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: ${props => props.theme.palette.mainBg};
 `;
 
