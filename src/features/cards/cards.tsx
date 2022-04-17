@@ -3,7 +3,7 @@ import Title from '@shared/components/title/title';
 
 import { cardsSrvc } from './cards.service';
 
-function Cards(): ReactElement {
+function Cards(): ReactElement<typeof Cards> {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {

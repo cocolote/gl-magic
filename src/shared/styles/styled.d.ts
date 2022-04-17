@@ -16,6 +16,10 @@ declare module 'styled-components' {
       border: string,
       borderRadius: string,
       background: string,
+    },
+    navDrawer: {
+      width: string,
+      miniWidth: string,
     }
   }
 }

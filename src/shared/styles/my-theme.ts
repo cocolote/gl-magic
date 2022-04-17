@@ -15,6 +15,10 @@ const myTheme: DefaultTheme = {
     border: '1px solid #777',
     background: '#222',
     borderRadius: '5px',
+  },
+  navDrawer: {
+    width: '250px',
+    miniWidth: '20px',
   }
 };
 

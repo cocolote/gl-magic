@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,19 +8,25 @@ import { ThemeProvider } from 'styled-components';
 
 import { myTheme } from './shared/styles/my-theme';
 import { GlobalStyle } from './shared/styles/global-styles';
-import Cards from './features/cards/cards';
+import NavBase from "@shared/components/nav-base/nav-base";
+import Cards from '@features/cards/cards';
 
 function App() {
   return (
     <ThemeProvider theme={myTheme}>
       <GlobalStyle />
       <Router>
-        <Switch>
-          <Redirect exact from="/" to="/cards" />
-          <Route path="/cards">
-            <Cards />
-          </Route>
-        </Switch>
+        <NavBase>
+          <Switch>
+            <Redirect exact from="/" to="/cards" />
+            <Route path="/cards">
+              <Cards />
+            </Route>
+            <Route path="/sets">
+              <div>this is another link</div>
+            </Route>
+          </Switch>
+        </NavBase>
       </Router>
     </ThemeProvider>
   );
