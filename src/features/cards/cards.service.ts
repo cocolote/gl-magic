@@ -1,10 +1,12 @@
-//import { http } from '../../shared/utils/http-client';
 import { http } from '@shared/utils/http-client';
 
 type filtersType = {
   page: number,
-  name?: string,
-  colors?: string,
+  filters?: {
+    [key: string]: string,
+    name: string,
+    colors: string,
+  },
 };
 
 const dOptions = {
@@ -12,11 +14,17 @@ const dOptions = {
   contains: ['imageUrl'],
 };
 
-const getAll = async ({ page, name, colors }: filtersType = { page: 1 }) => {
-  const url = 'https://api.magicthegathering.io/v1/cards'
+const getAll = async ({ page, filters }: filtersType): Promise<any> => {
+  let url = 'https://api.magicthegathering.io/v1/cards'
     + `?page=${page}`
     + `&pageSize=${dOptions.pageSize}`
     + `&contains=${dOptions.contains.join(',')}`;
+
+    if (filters) Object.keys(filters).forEach((fKey: string) => {
+      if (filters[fKey].replaceAll(' ', '').length > 0) {
+        url = url + `&${fKey}=${filters[fKey]}`;
+      }
+    });
 
   try {
     const resp = await http.get(url);

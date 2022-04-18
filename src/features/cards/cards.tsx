@@ -1,8 +1,8 @@
 import { useEffect, useState, ReactElement } from 'react';
 
 import Title from '@shared/components/title/title';
-import TextField from '@shared/components/text-field/text-field';
 import FlexContainer from '@shared/components/flex/container';
+import Filters from './filters/filters';
 import Pager from '@shared/components/pager/pager';
 
 import { StickyDiv } from './styled.components';
@@ -17,15 +17,25 @@ function Cards(): ReactElement<typeof Cards> {
   const [pagerPrams, setPagerParams] = useState(pagerInit);
 
   const [cards, setCards] = useState([]);
-  const [searchPayload, setSearchPayload] = useState({
+  const [filters, setFilters] = useState({
     name: '',
-    colors: []
+    colors: '',
   });
 
 
+  useEffect(() => { loadCards() }, [pagerPrams.page, pagerPrams.pageSize]);
+
   useEffect(() => {
-    loadCards()
-  }, [pagerPrams.page, pagerPrams.pageSize]);
+    if (pagerPrams.page > 1) {
+      // Load cards by changing the page
+      const auxPagerParams = { ...pagerPrams };
+      auxPagerParams.page = 1;
+      setPagerParams(auxPagerParams);
+    } else {
+      // Load cards and stay in page 1
+      loadCards();
+    }
+  }, [filters.name, filters.colors]);
 
   const pageChange = (newPage: number) => {
     const auxPagerParams = { ...pagerPrams };
@@ -35,7 +45,10 @@ function Cards(): ReactElement<typeof Cards> {
 
   const loadCards = async (): Promise<void> => {
     const auxPagerParams = { ...pagerPrams };
-    const resp = await cardsSrvc.getAll({ page: auxPagerParams.page });
+    const resp = await cardsSrvc.getAll({
+      page: auxPagerParams.page,
+      filters,
+    });
 
     if (resp && resp.status === 200) {
       auxPagerParams.total = +resp.headers['total-count'];
@@ -47,30 +60,18 @@ function Cards(): ReactElement<typeof Cards> {
     }
   };
 
-  const updateName = (e: any): void => {
-    const auxPayload = { ...searchPayload };
-    auxPayload.name = e.target.value;
-    setSearchPayload(auxPayload);
+  const updateFilters = (newFilters: any): void => {
+    setFilters(newFilters);
   };
 
   return (
     <>
       <StickyDiv $mWidth="100%">
         <Title size="lg">Cards Database</Title>
-        <FlexContainer
-          $fd="row"
-          $width="90%"
-          $columns="2"
-        >
-          <TextField
-            label="Seach by Name"
-            type="text"
-            name="searchName"
-            value={searchPayload.name}
-            onChange={updateName}
-          />
-          <div>Seach by Color</div>
-        </FlexContainer>
+        <Filters
+          {...filters}
+          onChange={updateFilters}
+        />
       </StickyDiv>
       <FlexContainer
         $fd="row"
