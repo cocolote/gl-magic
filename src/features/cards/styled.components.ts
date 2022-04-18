@@ -1,0 +1,13 @@
+import styled from 'styled-components';
+import FlexContainer from '@shared/components/flex/container';
+
+const StickyDiv = styled(FlexContainer)`
+  position: sticky;
+  top: 0;
+  padding: 5px 10px;
+  background-color: ${props => props.theme.palette.mainBg};
+  z-index: 100;
+  maring-bottom: 10px;
+`;
+
+export { StickyDiv };
