@@ -10,4 +10,13 @@ const StickyDiv = styled(FlexContainer)`
   maring-bottom: 10px;
 `;
 
-export { StickyDiv };
+const Card = styled.img`
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    transform: scale(1.03, 1.03);
+  }
+`;
+
+export { StickyDiv, Card };

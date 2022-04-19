@@ -5,7 +5,7 @@ import FlexContainer from '@shared/components/flex/container';
 import Filters from './filters/filters';
 import Pager from '@shared/components/pager/pager';
 
-import { StickyDiv } from './styled.components';
+import { StickyDiv, Card } from './styled.components';
 import { cardsSrvc } from './cards.service';
 
 function Cards(): ReactElement<typeof Cards> {
@@ -69,8 +69,7 @@ function Cards(): ReactElement<typeof Cards> {
       <StickyDiv $mWidth="100%">
         <Title size="lg">Cards Database</Title>
         <Filters
-          {...filters}
-          onChange={updateFilters}
+          onFilter={updateFilters}
         />
       </StickyDiv>
       <FlexContainer
@@ -80,8 +79,7 @@ function Cards(): ReactElement<typeof Cards> {
         $columns="4"
       >
         {cards.map((card: any) => (
-          <img
-            style={{ borderRadius: '20px' }}
+          <Card
             key={card.id}
             src={card.imageUrl}
             alt={card.name}
