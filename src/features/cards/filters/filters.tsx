@@ -63,6 +63,12 @@ function Filters({ onFilter }: filtersType): ReactElement<typeof Filters> {
     onFilter({ name: name, colors: fColors });
   };
 
+  const clearFilters = (_: any) => {
+    setName('');
+    setColors([]);
+    onFilter({ name: '', colors: '' });
+  };
+
   return (
     <>
       <FlexContainer
@@ -126,6 +132,7 @@ function Filters({ onFilter }: filtersType): ReactElement<typeof Filters> {
         $columns="1"
       >
         <Button onClick={applyFilters}>Search</Button>
+        <Button onClick={clearFilters}>Clear</Button>
       </FlexContainer>
     </>
   );
