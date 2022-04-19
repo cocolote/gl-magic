@@ -9,11 +9,11 @@ import { StyledLabel } from '@shared/components/text-field/styled.components';
 
 import { ColorButton, ColorConnector} from './styled.components';
 
-import blackImg from './assets/black.png';
-import blueImg from './assets/blue.png';
-import greenImg from './assets/green.png';
-import redImg from './assets/red.png';
-import whiteImg from './assets/white.png';
+import blackImg from '../assets/black.png';
+import blueImg  from '../assets/blue.png';
+import greenImg from '../assets/green.png';
+import redImg   from '../assets/red.png';
+import whiteImg from '../assets/white.png';
 
 type filtersType = {
   onFilter: (e: any) => void,

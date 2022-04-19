@@ -12,7 +12,7 @@ const Row = styled.div<rowProps>`
   flex-direction: row
   justify-content: ${props => props.$jc || 'flex-start'};
   align-items: ${props => props.$ai || 'stretch'};
-  width: ${props => props.$width || 'auto'};
+  width: ${props => props.$width || 'inherit'};
   max-width: ${props => props.$mWidth || 'auto'};
   padding: 0;
   margin: 0;

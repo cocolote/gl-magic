@@ -1,9 +1,16 @@
-import { useEffect, useState, ReactElement } from 'react';
+import {
+  useEffect,
+  useState,
+  ReactElement,
+  Fragment,
+} from 'react';
 
 import Title from '@shared/components/title/title';
 import FlexContainer from '@shared/components/flex/container';
 import Filters from './filters/filters';
 import Pager from '@shared/components/pager/pager';
+
+import CardDetails from './card-details/card-details';
 
 import { StickyDiv, Card } from './styled.components';
 import { cardsSrvc } from './cards.service';
@@ -16,12 +23,15 @@ function Cards(): ReactElement<typeof Cards> {
   };
   const [pagerPrams, setPagerParams] = useState(pagerInit);
 
-  const [cards, setCards] = useState([]);
-  const [filters, setFilters] = useState({
+  const [cards, setCards] = useState<Array<any>>([]);
+  const [filters, setFilters] = useState<any>({
     name: '',
     colors: '',
   });
-
+  const [selectedCard, setSelectedCard] = useState<any>(null);
+  const viewDetails = (thisCard: any) => (_: any) => {
+    setSelectedCard(thisCard);
+  };
 
   useEffect(() => { loadCards() }, [pagerPrams.page, pagerPrams.pageSize]);
 
@@ -68,9 +78,7 @@ function Cards(): ReactElement<typeof Cards> {
     <>
       <StickyDiv $mWidth="100%">
         <Title size="lg">Cards Database</Title>
-        <Filters
-          onFilter={updateFilters}
-        />
+        <Filters onFilter={updateFilters} />
       </StickyDiv>
       <FlexContainer
         $fd="row"
@@ -79,15 +87,18 @@ function Cards(): ReactElement<typeof Cards> {
         $columns="4"
       >
         {cards.map((card: any) => (
-          <Card
-            key={card.id}
-            src={card.imageUrl}
-            alt={card.name}
-            title={card.name}
-          />
+          <Fragment key={card.id}>
+            <Card
+              src={card.imageUrl}
+              alt={card.name}
+              title={card.name}
+              onClick={viewDetails(card)}
+            />
+          </Fragment>
         ))}
       </FlexContainer>
-      <Pager {...pagerPrams} newPage={pageChange}/>
+      <Pager {...pagerPrams} newPage={pageChange} />
+      <CardDetails card={selectedCard} onClose={() => setSelectedCard(null)} />
     </>
   );
 }

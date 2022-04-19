@@ -14,6 +14,7 @@ type flexProps = {
   $ai?: string,
   $width?: string,
   $mWidth?: string,
+  $mHeight?: string,
   $columns?: string,
 };
 
@@ -23,9 +24,9 @@ const FlexContainer = styled.div<flexProps>`
   align-items: ${props => props.$ai || 'stretch'};
   justify-content: ${props => props.$jc || 'flex-start'};
   flex-grow: 1;
-  flex-shrink: 0;
-  width: ${props => props.$width || 'inherit'};
+  flex-shrink: 1;
   max-width: ${props => props.$mWidth || '1150px'};
+  max-height: ${props => props.$mHeight || 'auto'};
   margin: 0 auto;
   flex-wrap: wrap;
   padding: 0 -8px;
