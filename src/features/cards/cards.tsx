@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useCallback,
   useState,
   ReactElement,
   Fragment,
@@ -16,12 +17,11 @@ import { StickyDiv, Card } from './styled.components';
 import { cardsSrvc } from './cards.service';
 
 function Cards(): ReactElement<typeof Cards> {
-  const pagerInit = {
+  const [pagerPrams, setPagerParams] = useState({
     page: 1,
     pageSize: 20,
     total: 0,
-  };
-  const [pagerPrams, setPagerParams] = useState(pagerInit);
+  });
 
   const [cards, setCards] = useState<Array<any>>([]);
   const [filters, setFilters] = useState<any>({
@@ -33,41 +33,54 @@ function Cards(): ReactElement<typeof Cards> {
     setSelectedCard(thisCard);
   };
 
-  useEffect(() => { loadCards() }, [pagerPrams.page, pagerPrams.pageSize]);
-
   useEffect(() => {
-    if (pagerPrams.page > 1) {
-      // Load cards by changing the page
-      const auxPagerParams = { ...pagerPrams };
-      auxPagerParams.page = 1;
-      setPagerParams(auxPagerParams);
-    } else {
-      // Load cards and stay in page 1
-      loadCards();
-    }
-  }, [filters.name, filters.colors]);
+    const getCards = async (
+      page: number,
+      pageSize: number,
+      fName: string,
+      fColors: string,
+    ): Promise<void> => {
+      const resp = await cardsSrvc.getAll({
+        page: page,
+        filters: { name: fName, colors: fColors },
+      });
+
+      if (resp && resp.status === 200) {
+        const newTotal = +resp.headers['total-count'];
+        const newPage = newTotal === 0 || page > newTotal / pageSize ? 1 : page
+        setPagerParams({
+          page: newPage,
+          pageSize: pageSize,
+          total: newTotal,
+        });
+        setCards(resp.data.cards);
+      } else {
+        setCards([]);
+        setPagerParams({
+          page: 1,
+          pageSize: pageSize,
+          total: 0,
+        });
+      }
+    };
+
+    getCards(
+      pagerPrams.page,
+      pagerPrams.pageSize,
+      filters.name,
+      filters.colors
+    );
+  }, [
+    pagerPrams.page,
+    pagerPrams.pageSize,
+    filters.name,
+    filters.colors,
+  ]);
 
   const pageChange = (newPage: number) => {
     const auxPagerParams = { ...pagerPrams };
     auxPagerParams.page = newPage;
     setPagerParams(auxPagerParams);
-  };
-
-  const loadCards = async (): Promise<void> => {
-    const auxPagerParams = { ...pagerPrams };
-    const resp = await cardsSrvc.getAll({
-      page: auxPagerParams.page,
-      filters,
-    });
-
-    if (resp && resp.status === 200) {
-      auxPagerParams.total = +resp.headers['total-count'];
-      setPagerParams(auxPagerParams);
-      setCards(resp.data.cards);
-    } else {
-      setCards([]);
-      setPagerParams(pagerInit);
-    }
   };
 
   const updateFilters = (newFilters: any): void => {
